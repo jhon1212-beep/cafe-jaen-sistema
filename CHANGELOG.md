@@ -7,6 +7,11 @@ recomendación de venta).
 ## [v1.13] — Ajustes tras las entrevistas y la revisión del informe
 
 ### Agregado
+- **Precio de referencia de las cooperativas.** En «Equipo → Precios» una tarjeta recuerda que
+  solo se anota el precio del pergamino seco estándar (11–12 % de humedad, calidad regular, sin
+  castigos) y la app pide confirmarlo antes de guardar. El caficultor ve la misma aclaración bajo
+  el estimado en Jaén y el asesor la menciona al hablar de humedad. Así los precios se comparan
+  entre cooperativas y días (`docs/operacion.md`).
 - **Asesor: temas de la entrevista a un comerciante de café de Jaén** (13/11/2026): el
   diferencial y el rendimiento exportable, el precio fijo («coberturado») y por calidad, la
   cobertura, los meses del contrato C (marzo, mayo, julio, septiembre y diciembre) y el salto del
@@ -26,9 +31,11 @@ recomendación de venta).
   estimado en Jaén y los precios de cooperativas «por quintal de pergamino (55,2 kg)», en las
   pantallas, en la explicación «¿Cómo se calcula?», en el pronóstico y en las respuestas del
   asesor. Las fichas de TAI y TPP de la tesis usan el quintal de 55,2 kg.
-- **Producción sin datos sintéticos.** `render.yaml` trae `DEMO_COOPERATIVES=false` y, con ese
-  valor, la app borra al arrancar los precios «JAENPERU sintético» que hayan quedado. En Render hay
-  que cambiar la variable a mano si ya existía en `true`.
+- **Datos sintéticos solo cuando el equipo lo decide.** Con `DEMO_COOPERATIVES=true` la app carga
+  la demostración del estimado en Jaén; con `false` no los carga ni los borra (el borrado
+  automático de una versión previa hacía desaparecer la demostración en cada reinicio de Render).
+  Antes del experimento se pone en `false` y se borran en «Equipo → Cooperativas». El promedio
+  diario para la tesis nunca los usa.
 
 - **Horario de la bolsa en hora de Lima.** La pantalla «Precio» dice cuándo negocia la bolsa hoy
   (de 04:15 a 13:30 de noviembre a marzo; de 03:15 a 12:30 cuando Nueva York pasa al horario de
@@ -36,6 +43,16 @@ recomendación de venta).
   madrugada hasta el mediodía».
 
 ### Corregido
+- **Responsividad y botones.**
+  - El botón de acción de cada formulario («Generar», «Guardar precio», «Crear…») ocupa todo el
+    ancho y queda centrado.
+  - Dentro de un formulario, la opción elegida («Caficultores / Equipo») se marca en amarillo y
+    ya no se confunde con el botón negro.
+  - En celulares de 360 px: el selector de tipo de café entra en una sola fila, la pestaña activa
+    de la barra inferior («¿Vendo?») y la de «Participantes» no se cortan, y las tarjetas usan
+    menos margen.
+  - En tablet y PC las pantallas del equipo usan más ancho y sus 6 pestañas van en una sola fila.
+  - Las descargas CSV quedan como botones secundarios dentro de su tarjeta.
 - **Asesor y «¿Cómo se calcula?» con el dólar en vivo.** Las respuestas sobre el cálculo, las
   fuentes y el tipo de cambio decían que el dólar era solo el oficial del BCRP y que la bolsa se
   consultaba en Yahoo Finance y Stooq. Ahora explican el dólar en vivo cada minuto (Yahoo

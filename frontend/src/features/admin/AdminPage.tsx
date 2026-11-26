@@ -23,6 +23,7 @@ export function AdminPage() {
       <AdminTabs />
       <h1>{texts.admin.title}</h1>
       <p className="muted">{texts.admin.intro}</p>
+      <ReferenceCondition />
       <NewPriceForm cooperatives={active} onSaved={prices.reload} />
 
       <h2 className="card__title">{texts.admin.recent}</h2>
@@ -80,7 +81,12 @@ function ExportPrices() {
       <button className="button" type="button" disabled={busy} onClick={() => download(false)}>
         {texts.admin.exportDetail}
       </button>
-      <button className="button" type="button" disabled={busy} onClick={() => download(true)}>
+      <button
+        className="button button--secondary"
+        type="button"
+        disabled={busy}
+        onClick={() => download(true)}
+      >
         {texts.admin.exportSummary}
       </button>
       <StatusMessage error={error} />
@@ -88,7 +94,24 @@ function ExportPrices() {
   );
 }
 
-function NewPriceForm({
+/** Condición de referencia acordada: todos los precios anotados son del mismo café. */
+export function ReferenceCondition() {
+  const ref = texts.admin.reference;
+  return (
+    <aside className="reference" aria-label={ref.title}>
+      <p className="reference__title">{ref.title}</p>
+      <p className="reference__intro">{ref.intro}</p>
+      <ul className="reference__chips">
+        {ref.chips.map((chip) => (
+          <li key={chip}>{chip}</li>
+        ))}
+      </ul>
+      <p className="reference__ask">{ref.ask}</p>
+    </aside>
+  );
+}
+
+export function NewPriceForm({
   cooperatives,
   onSaved,
 }: {
@@ -98,6 +121,7 @@ function NewPriceForm({
   const [cooperative, setCooperative] = useState("");
   const [coffeeType, setCoffeeType] = useState<CoffeeType>("convencional");
   const [paid, setPaid] = useState("");
+  const [standard, setStandard] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
   const [saving, setSaving] = useState(false);
@@ -115,6 +139,7 @@ function NewPriceForm({
       });
       setMessage(texts.admin.saved(formatPercent(saved.ratio_pct)));
       setPaid("");
+      setStandard(false); // cada precio nuevo se confirma de nuevo
       onSaved();
     } catch (caught) {
       setError(caught as ApiError);
@@ -160,7 +185,11 @@ function NewPriceForm({
           required
         />
       </label>
-      <button className="button" disabled={saving}>
+      <label className="checkbox">
+        <input type="checkbox" checked={standard} onChange={(e) => setStandard(e.target.checked)} />
+        {texts.admin.confirmStandard}
+      </label>
+      <button className="button" disabled={saving || !standard}>
         {texts.admin.save}
       </button>
       {message && (

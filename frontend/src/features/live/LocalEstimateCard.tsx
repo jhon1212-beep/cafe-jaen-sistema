@@ -100,6 +100,7 @@ function GeneralEstimate({
         )}{" "}
         {texts.local.note}
       </p>
+      <p className="reference-note">{texts.local.standard}</p>
       <InfoNote>
         <ol>
           {texts.info

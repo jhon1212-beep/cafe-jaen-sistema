@@ -1717,3 +1717,156 @@ a.button {
   border-left-color: var(--linea);
   opacity: 0.75;
 }
+
+/* ---------- Precio de referencia de las cooperativas (v1.13) ---------- */
+.reference {
+  background: var(--brote);
+  color: var(--espresso);
+  border-radius: var(--radio);
+  padding: 1.1rem 1.25rem;
+  margin-bottom: 1rem;
+}
+.reference__title {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 760;
+  margin: 0 0 0.35rem;
+}
+.reference__intro,
+.reference__ask {
+  margin: 0;
+  font-size: 0.95rem;
+}
+.reference__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0;
+}
+.reference__chips li {
+  background: var(--espresso);
+  color: var(--brote);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.reference-note {
+  border-left: 4px solid var(--hoja);
+  background: var(--hoja-clara);
+  color: var(--espresso);
+  border-radius: var(--radio-chico);
+  padding: 0.6rem 0.85rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.95rem;
+}
+
+/* ---------- Responsividad y botones (v1.13) ---------- */
+/* El botón de acción de cada formulario ocupa todo el ancho y queda centrado */
+.form > .button {
+  width: 100%;
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.field__label {
+  font-weight: 650;
+}
+/* Una opción elegida dentro de un formulario se marca en amarillo: así no se confunde con el
+   botón negro de la acción («Generar», «Guardar») */
+.form .segmented {
+  margin-bottom: 0;
+  background: var(--niebla);
+}
+.form .segmented__pill {
+  background: var(--grano);
+}
+.form .segmented__option[aria-pressed="true"] {
+  color: var(--espresso) !important;
+}
+.export-card .muted {
+  margin-top: 0;
+}
+.export-card .button--block {
+  margin-top: 0.5rem;
+}
+
+/* Selector de tres opciones (tipo de café) en una sola fila desde 360 px */
+.segmented__option {
+  min-width: 0;
+  padding-inline: 0.55rem;
+}
+.segmented__label {
+  white-space: nowrap;
+}
+
+/* Barra inferior: la etiqueta de la pestaña activa no se corta */
+.bottom-nav__item {
+  min-width: 0;
+}
+.bottom-nav__label {
+  white-space: nowrap;
+  letter-spacing: -0.015em;
+}
+
+/* Celulares angostos (360 px) */
+@media (max-width: 380px) {
+  .content {
+    padding-inline: 0.75rem;
+  }
+  .tile,
+  .card,
+  .reference {
+    padding: 1rem;
+  }
+  .bottom-nav {
+    padding: 0 0.35rem;
+  }
+  .bottom-nav__inner {
+    padding: 0.25rem;
+  }
+  .bottom-nav__item.active {
+    font-weight: 700;
+  }
+  .stat {
+    padding: 0.6rem;
+  }
+  .admin-tabs__link {
+    padding-inline: 0;
+    letter-spacing: -0.015em;
+  }
+  /* Tres opciones en una fila: las columnas toman el ancho de su texto */
+  .segmented {
+    flex-wrap: nowrap;
+    gap: 0.1rem;
+  }
+  .segmented__option {
+    padding-inline: 0.4rem;
+  }
+}
+
+/* Pestañas del equipo: cada columna toma el ancho de su palabra más larga («Participantes») */
+.admin-tabs {
+  grid-template-columns: repeat(3, auto);
+}
+
+/* La pestaña activa de la barra inferior se ensancha para que su nombre entre completo */
+.bottom-nav__item.active {
+  flex: 1.3;
+}
+
+/* Tablet y PC: las pantallas del equipo usan más ancho y sus pestañas van en una sola fila */
+@media (min-width: 768px) {
+  .layout:has(.admin-tabs) .header,
+  .layout:has(.admin-tabs) .profile-bar,
+  .layout:has(.admin-tabs) .content {
+    max-width: 760px;
+  }
+  .admin-tabs {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

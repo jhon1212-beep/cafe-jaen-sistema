@@ -128,11 +128,12 @@ Con `DEMO_COOPERATIVES=true` la app carga una sola vez los precios **sintéticos
 JAENPERU sintético A…F» en cuanto tiene el precio real de la bolsa (al arrancar o, si todavía no
 lo tiene, reintentando cada 5 minutos). La bolsa y el tipo de cambio siguen siendo reales.
 
-Desde v1.13 `render.yaml` trae `DEMO_COOPERATIVES=false`, el valor del experimento con
-caficultores: al arrancar, la app **borra** los precios sintéticos que hayan quedado, así el
-estimado en Jaén y las descargas para la tesis usan solo precios reales. Si en Render la variable
-quedó en `true` de antes, hay que cambiarla a mano en **Environment** (los cambios de
-`render.yaml` no pisan una variable ya creada).
+Mientras dure la demostración dejamos `DEMO_COOPERATIVES=true`. Con `false` la app no los
+carga ni los borra: el plan gratuito de Render reinicia la app a menudo y un borrado automático
+haría desaparecer la demostración. **Antes del experimento** ponemos `DEMO_COOPERATIVES=false`
+en Render (**Environment**) y los borramos en «Equipo → Cooperativas → Borrar datos
+sintéticos». Aunque quedaran, el «Promedio por día (CSV)» de la tesis no los usa y el caficultor
+ve el aviso «Demostración» bajo el estimado.
 
 ## Verificación de la cuenta (v1.10–v1.11)
 

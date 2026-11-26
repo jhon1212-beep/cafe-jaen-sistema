@@ -267,7 +267,10 @@ FAQ: tuple[FaqEntry, ...] = (
         "humedad",
         ("humedad", "secado", "secar"),
         "Las cooperativas suelen pedir pergamino bien seco, alrededor de 11 a 12 % de humedad; "
-        "con más humedad pueden descontar del precio. Confirma la exigencia con tu cooperativa.",
+        "con más humedad pueden descontar del precio. Los precios de cooperativas de la app y el "
+        "estimado en Jaén son del pergamino seco estándar (11–12 % de humedad, calidad regular): "
+        "si tu café está más húmedo, espera un precio algo menor. Confirma la exigencia con tu "
+        "cooperativa.",
     ),
     FaqEntry(
         "sin_senal",

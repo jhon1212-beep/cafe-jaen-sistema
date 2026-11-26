@@ -51,18 +51,20 @@ export function ParticipantsPage() {
         />{" "}
         {texts.participants.intro}
       </p>
-      <p className="muted">{texts.participants.exportHint}</p>
-      <button
-        className="button"
-        type="button"
-        onClick={() =>
-          api
-            .download("/admin/participants/export", "participantes.csv")
-            .catch((caught) => setActionError(caught as ApiError))
-        }
-      >
-        {texts.participants.export}
-      </button>
+      <div className="card export-card">
+        <p className="muted">{texts.participants.exportHint}</p>
+        <button
+          className="button button--secondary button--block"
+          type="button"
+          onClick={() =>
+            api
+              .download("/admin/participants/export", "participantes.csv")
+              .catch((caught) => setActionError(caught as ApiError))
+          }
+        >
+          {texts.participants.export}
+        </button>
+      </div>
       <StatusMessage error={actionError} />
       {data && result ? (
         <>
