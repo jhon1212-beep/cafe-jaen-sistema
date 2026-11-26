@@ -6,7 +6,9 @@ from typing import Any
 
 _NUMBER = re.compile(r"\d+(?:[.,]\d+)*")
 _TOLERANCE = 0.06  # admite redondeos a un decimal (p. ej., 3,72 % mostrado como 3,7 %)
-_ALWAYS_ALLOWED = {46.0, 7.0}  # kg por quintal y horizonte del pronóstico
+# kg del quintal de café verde (bolsa), kg del quintal de pergamino en Jaén y horizonte del
+# pronóstico
+_ALWAYS_ALLOWED = {46.0, 55.2, 7.0}
 
 
 def is_grounded(text: str, data: dict[str, Any]) -> bool:

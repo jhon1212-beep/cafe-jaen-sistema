@@ -79,7 +79,7 @@ def live_to_dict(live: LivePrice, zone: tzinfo | None = None) -> dict[str, Any]:
         "previous_close_soles": float(live.previous_close.soles) if live.previous_close else None,
         "change_soles": float(live.change_soles) if live.change_soles is not None else None,
         "change_pct": float(live.change_pct) if live.change_pct is not None else None,
-        "unit": "S/ por quintal (46 kg)",
+        "unit": "S/ por quintal de café verde (46 kg)",
         "market": "Bolsa de Nueva York (ICE), café arábica",
         "market_open": live.market_open,
         "stale": live.stale,

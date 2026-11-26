@@ -12,7 +12,7 @@ export const texts = {
     confirmDelete: "¿Seguro? Toca otra vez",
     loading: "Cargando…",
     retry: "Intentar de nuevo",
-    perQuintal: "por quintal (46 kg)",
+    perQuintal: "por quintal de café verde (46 kg)",
     source: "Fuente",
     logout: "Salir",
     offline: (when: string) => `Sin conexión — precio de las ${when}`,
@@ -91,15 +91,16 @@ export const texts = {
     close: "Ocultar explicación",
     priceSteps: (cents: string, usd: string, quintal: string, rate: string, soles: string) => [
       `La bolsa cotiza ${cents} centavos de dólar por libra → US$ ${usd} por libra.`,
-      `Un quintal son 46 kg = 101,41 libras → US$ ${quintal} por quintal.`,
+      `Un quintal de café verde son 46 kg = 101,41 libras → US$ ${quintal} por quintal.`,
       `Por el tipo de cambio del BCRP (S/ ${rate} por dólar) → ${soles} por quintal.`,
     ],
     priceNoRate:
-      "Se convierte de dólares por libra a soles por quintal (46 kg) con el tipo de cambio del BCRP.",
+      "Se convierte de dólares por libra a soles por quintal de café verde (46 kg) con el tipo de cambio del BCRP.",
     estimateSteps: (n: number, pct: string, exchange: string, result: string) => [
       `Tomamos los ${n} ${n === 1 ? "precio anotado" : "precios anotados"} de cooperativas de los últimos 30 días y, para cada uno, qué porcentaje de la bolsa pagaron ese día.`,
       `La mediana (el valor del medio, que no se deja llevar por un precio raro) es ${pct}.`,
-      `Bolsa de ahora ${exchange} × ${pct} = ${result} por quintal de pergamino.`,
+      `Bolsa de ahora ${exchange} × ${pct} = ${result} por quintal de pergamino (55,2 kg).`,
+      "La bolsa se expresa por quintal de café verde (46 kg); las cooperativas de Jaén compran por quintal de pergamino (55,2 kg). El porcentaje ya incluye esa diferencia.",
     ],
     forecast: [
       "El Agente Predictor prueba dos modelos con el histórico de la bolsa (una red ELM y un modelo base) y usa el que tuvo menos error en los últimos meses.",
@@ -128,9 +129,9 @@ export const texts = {
     fewData: "Todavía hay pocos precios anotados: tómalo como una idea aproximada.",
     synthetic: (n: number, total: number) =>
       `Demostración: ${n} de ${total} precios usados son sintéticos (no son de cooperativas reales).`,
-    note: "Es lo que suelen pagar las cooperativas por quintal de pergamino, según la bolsa de hoy.",
+    note: "Es lo que suelen pagar las cooperativas por quintal de pergamino (55,2 kg), según la bolsa de hoy.",
     empty: "Todavía no hay precios de cooperativas anotados.",
-    unit: "por quintal de pergamino",
+    unit: "por quintal de pergamino (55,2 kg)",
     general: "General",
     byCooperative: "Por cooperativa",
     coopsEmpty: (type: string) => `Todavía no hay precios de café ${type} anotados este mes.`,
@@ -303,6 +304,9 @@ export const texts = {
       none: "(no salió automáticamente: envíaselo por WhatsApp)",
     },
     sendByWhatsApp: "Enviar código por WhatsApp",
+    export: "Descargar participantes (CSV)",
+    exportHint:
+      "Registro y último ingreso de cada caficultor, para controlar el uso de la app en el grupo experimental. Anota en «codigo_tesis» el código GE-01 … GE-30 de cada uno.",
     newTeamTitle: "Crear cuenta del equipo",
     newTeamIntro:
       "Con su celular y una contraseña. Queda activa al instante como administrador; entrégale los datos en persona.",
@@ -325,12 +329,19 @@ export const texts = {
     corrected: (pct: string) => `Corregido: ahora equivale al ${pct} de la bolsa.`,
     removePrice: "Borrar precio",
     coffeeType: "Tipo de café",
-    paid: "Precio que paga hoy (S/ por quintal de pergamino)",
+    paid: "Precio que paga hoy (S/ por quintal de pergamino de 55,2 kg)",
     save: "Guardar precio",
     saved: (pct: string) => `Guardado: equivale al ${pct} de la bolsa.`,
     recent: "Anotados en los últimos 30 días",
     paidShort: "pagó",
     exchange: "bolsa",
+    exportTitle: "Descargar precios para la tesis",
+    exportIntro:
+      "El precio real de la ficha TPP es el promedio de al menos tres cooperativas en la fecha objetivo. El detalle trae cada precio anotado; el promedio por día usa el último precio de cada cooperativa y deja fuera los sintéticos.",
+    exportFrom: "Desde",
+    exportTo: "Hasta",
+    exportDetail: "Detalle (CSV)",
+    exportSummary: "Promedio por día (CSV)",
   },
   chart: {
     title: "Gráfico del precio",
@@ -352,6 +363,8 @@ export const texts = {
       `En Jaén = pronóstico de la bolsa × ${pct}, lo que pagan hoy las cooperativas por café ${type}.`,
     noLocal: "Todavía no hay precios de cooperativas: solo se muestra la bolsa.",
     rangeHint: "La barra amarilla es el rango probable; el punto, el valor esperado.",
+    units:
+      "Bolsa: S/ por quintal de café verde (46 kg). En Jaén: S/ por quintal de pergamino (55,2 kg).",
     range: (low: string, high: string) => `rango ${low}–${high}`,
   },
   decision: {

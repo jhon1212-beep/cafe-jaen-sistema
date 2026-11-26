@@ -5,6 +5,8 @@ agentes: por eso llaman a los casos de uso directamente y no pasan por el superv
 (ver docs/decisiones/0010-administracion-sin-agentes.md).
 """
 
+import csv
+import io
 from collections.abc import Callable
 from datetime import date
 from decimal import Decimal
@@ -14,11 +16,13 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from pydantic import BaseModel, Field
 
 from market.application.correct_local_price import CorrectLocalPrice
+from market.application.export_local_prices import ExportLocalPrices
 from market.application.get_price_log import GetPriceLog, PriceLogEntry
 from market.application.manage_cooperatives import CooperativeData, ManageCooperatives
 from market.application.manage_synthetic_data import ManageSyntheticData, SyntheticStatus
 from market.domain.cooperative import Cooperative
 from market.domain.errors import MarketError, NotFoundError
+from market.domain.local_price import is_synthetic
 
 T = TypeVar("T")
 
@@ -39,6 +43,7 @@ def build_admin_market_router(
     corrections: CorrectLocalPrice,
     price_log: GetPriceLog,
     synthetic: ManageSyntheticData,
+    exports: ExportLocalPrices,
     require_user: Callable[..., str],
     require_admin: Callable[..., str],
 ) -> APIRouter:
@@ -80,6 +85,57 @@ def build_admin_market_router(
         _handle(lambda: corrections.delete(observation_id))
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
+    @router.get("/admin/local-prices/export", dependencies=admin)
+    def export_local_prices(start: date, end: date, summary: bool = False) -> Response:
+        """CSV de los precios de cooperativas (detalle o promedio por día) para la tesis."""
+        if summary:
+            header = [
+                "fecha",
+                "tipo_de_cafe",
+                "cooperativas",
+                "promedio_soles_quintal_pergamino_55_2kg",
+                "minimo",
+                "maximo",
+            ]
+            rows = [
+                [
+                    d.day.strftime("%d/%m/%Y"),
+                    d.coffee_type.value,
+                    d.cooperatives,
+                    d.average,
+                    d.lowest,
+                    d.highest,
+                ]
+                for d in _handle(lambda: exports.daily(start, end))
+            ]
+            name = f"promedio_diario_cooperativas_{start}_{end}.csv"
+        else:
+            header = [
+                "fecha",
+                "hora",
+                "cooperativa",
+                "tipo_de_cafe",
+                "pagado_soles_quintal_pergamino_55_2kg",
+                "bolsa_soles_quintal_cafe_verde_46kg",
+                "porcentaje_de_la_bolsa",
+                "sintetico",
+            ]
+            rows = [
+                [
+                    exports.moment_of(o).strftime("%d/%m/%Y"),
+                    exports.moment_of(o).strftime("%H:%M"),
+                    o.cooperative,
+                    o.coffee_type.value,
+                    o.paid_soles,
+                    o.exchange_soles,
+                    round(o.ratio * 100, 1),
+                    "si" if is_synthetic(o.cooperative) else "no",
+                ]
+                for o in _handle(lambda: exports.observations(start, end))
+            ]
+            name = f"precios_cooperativas_{start}_{end}.csv"
+        return _csv(header, rows, name)
+
     # ---- precios sintéticos de demostración (solo el equipo los carga o los borra)
     @router.get("/admin/synthetic-data", dependencies=admin)
     def synthetic_status() -> dict[str, int]:
@@ -116,6 +172,19 @@ def build_admin_market_router(
         }
 
     return router
+
+
+def _csv(header: list[str], rows: list[list[Any]], filename: str) -> Response:
+    """CSV en UTF-8 con BOM para que Excel muestre bien las tildes."""
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow(header)
+    writer.writerows(rows)
+    return Response(
+        content="\ufeff" + buffer.getvalue(),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+    )
 
 
 def _handle(action: Callable[[], T]) -> T:

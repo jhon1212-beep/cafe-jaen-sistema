@@ -35,8 +35,8 @@ def test_template_for_live_price_uses_only_data() -> None:
 
     assert text == (
         "En la bolsa de Nueva York el café está a 300,00 centavos de dólar por libra, que equivale "
-        "a S/ 1140,89 por quintal (46 kg) (cotización de las 08:55 del 04/11/2026); subió "
-        "S/ 40,89 (3,7 %) frente al cierre anterior. Fuente: Yahoo Finance, Stooq, BCRP."
+        "a S/ 1140,89 por quintal de café verde (46 kg) (cotización de las 08:55 del 04/11/2026); "
+        "subió S/ 40,89 (3,7 %) frente al cierre anterior. Fuente: Yahoo Finance, Stooq, BCRP."
     )
     assert is_grounded(text, LIVE)
 
@@ -56,7 +56,8 @@ def test_live_price_template_adds_estimate_for_jaen() -> None:
     text = template_answer("get_live_price", data)
 
     assert text.endswith(
-        "Precio estimado en Jaén: convencional S/ 900,70 (según precios de cooperativas)."
+        "Precio estimado en Jaén: convencional S/ 900,70 por quintal de pergamino (55,2 kg), "
+        "según precios de cooperativas."
     )
     assert is_grounded(text, data)
 
@@ -100,3 +101,9 @@ def test_today_history_template() -> None:
 
 def test_unknown_action_returns_no_information() -> None:
     assert template_answer("bailar", {}).startswith("No tengo esa información")
+
+
+def test_quintal_weights_are_always_allowed() -> None:
+    text = "La bolsa va por quintal de café verde (46 kg) y en Jaén por quintal de 55,2 kg."
+
+    assert is_grounded(text, {})

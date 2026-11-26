@@ -9,7 +9,7 @@ import json
 from fastapi.testclient import TestClient
 
 from tests.conftest import INVITATION_CODE
-from tests.fakes import FakeCodeSender
+from tests.fakes import FakeCodeSender, FixedClock
 
 
 def test_health(client: TestClient) -> None:
@@ -73,7 +73,7 @@ def test_live_price_and_history(client: TestClient, auth_headers: dict[str, str]
     today = client.get("/api/prices/history?period=today", headers=auth_headers).json()
 
     # Sin cotizaciones en vivo todavía: se muestra el último cierre
-    assert live["unit"] == "S/ por quintal (46 kg)" and live["price_soles"] > 0
+    assert live["unit"] == "S/ por quintal de café verde (46 kg)" and live["price_soles"] > 0
     assert len(history["points"]) > 50
     assert today == {"period": "today", "points": []}
 
@@ -148,6 +148,38 @@ def test_only_the_team_can_record_cooperative_prices(
     assert live["local_estimates"][0]["estimated_soles"] == 900.0
 
 
+def test_team_downloads_cooperative_prices_as_csv(
+    client: TestClient,
+    auth_headers: dict[str, str],
+    admin_headers: dict[str, str],
+    clock: FixedClock,
+) -> None:
+    body = {"cooperative": "Coop. A", "coffee_type": "convencional", "paid_soles": 900}
+    client.post("/api/admin/local-prices", json=body, headers=admin_headers)
+    today = clock.today().isoformat()
+    params = {"start": today, "end": today}
+
+    as_farmer = client.get("/api/admin/local-prices/export", params=params, headers=auth_headers)
+    detail = client.get("/api/admin/local-prices/export", params=params, headers=admin_headers)
+    summary = client.get(
+        "/api/admin/local-prices/export",
+        params={**params, "summary": "true"},
+        headers=admin_headers,
+    )
+
+    assert as_farmer.status_code == 403
+    assert detail.headers["content-type"].startswith("text/csv")
+    assert "attachment" in detail.headers["content-disposition"]
+    lines = detail.text.lstrip("\ufeff").splitlines()
+    assert lines[0].startswith("fecha,hora,cooperativa,tipo_de_cafe")
+    assert "Coop. A,convencional,900" in lines[1]
+    assert (
+        summary.text.lstrip("\ufeff")
+        .splitlines()[1]
+        .endswith(",convencional,1,900.00,900.00,900.00")
+    )
+
+
 def test_advisor_answers_with_the_same_price_as_home(
     client: TestClient, auth_headers: dict[str, str]
 ) -> None:
@@ -161,6 +193,22 @@ def test_advisor_answers_with_the_same_price_as_home(
 
     assert f"{live['price_soles']:.2f}".replace(".", ",") in reply["answer"]
     assert reply["used_tool"] == "get_live_price"
+
+
+def test_team_downloads_participants_as_csv(
+    client: TestClient, auth_headers: dict[str, str], admin_headers: dict[str, str]
+) -> None:
+    as_farmer = client.get("/api/admin/participants/export", headers=auth_headers)
+    response = client.get("/api/admin/participants/export", headers=admin_headers)
+
+    lines = response.text.lstrip("\ufeff").splitlines()
+    assert as_farmer.status_code == 403
+    assert response.headers["content-type"].startswith("text/csv")
+    assert lines[0] == (
+        "codigo_tesis,codigo_invitacion,nombre,celular,verificado,registro,ultimo_ingreso"
+    )
+    assert len(lines) == 2  # solo el caficultor; la cuenta del equipo no se exporta
+    assert f",{INVITATION_CODE}," in lines[1] and ",987654321,si," in lines[1]
 
 
 def test_team_sees_participants_and_their_last_login(
