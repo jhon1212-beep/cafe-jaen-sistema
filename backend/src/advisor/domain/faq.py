@@ -47,10 +47,12 @@ FAQ: tuple[FaqEntry, ...] = (
             "como calculan",
         ),
         "El precio de la bolsa llega en centavos de dólar por libra (¢/lb). Lo pasamos a soles "
-        "por quintal así: ¢/lb ÷ 100 × 101,41 libras (los 46 kg del quintal) × tipo de cambio del "
-        "BCRP. El «precio estimado en Jaén» es ese precio × el porcentaje que pagan las "
-        "cooperativas (la mediana de los precios anotados en los últimos 30 días). En la pantalla "
-        "«Precio» el botón «¿Cómo se calcula?» muestra la cuenta con los números de hoy.",
+        "por quintal así: ¢/lb ÷ 100 × 101,41 libras (los 46 kg del quintal de café verde) × el "
+        "dólar de ese momento, que se actualiza cada minuto (si no responde, se usa el oficial "
+        "del BCRP del día). El «precio estimado en Jaén» es ese precio × el porcentaje que "
+        "pagan las cooperativas (la mediana de los precios anotados en los últimos 30 días). En "
+        "la pantalla «Precio» el botón «¿Cómo se calcula?» muestra la cuenta con los números de "
+        "hoy.",
     ),
     FaqEntry(
         "por_que_jaen_es_distinto",
@@ -161,9 +163,10 @@ FAQ: tuple[FaqEntry, ...] = (
     FaqEntry(
         "fuentes",
         ("de donde sacan", "fuente", "de donde viene", "confiable el precio", "es real el precio"),
-        "El precio de la bolsa lo consultamos cada minuto en Yahoo Finance y Stooq (contrato café "
-        "C de la bolsa ICE de Nueva York) y publicamos el valor en que coinciden. "
-        "El tipo de cambio es el oficial del Banco Central de Reserva (BCRP). Lo que paga "
+        "El precio de la bolsa lo consultamos cada minuto en varias webs (Yahoo Finance, CNBC y "
+        "TradingView; contrato café C de la bolsa ICE de Nueva York) y publicamos el valor en que "
+        "coinciden. El dólar sale de Yahoo Finance o TradingView cada minuto y, si no responden, "
+        "del Banco Central de Reserva (BCRP). Lo que paga "
         "cada cooperativa lo anota el equipo preguntando directamente. En «Precio» están los "
         "botones para abrir cada fuente.",
     ),
@@ -219,9 +222,11 @@ FAQ: tuple[FaqEntry, ...] = (
     FaqEntry(
         "tipo_de_cambio",
         ("tipo de cambio", "dolar", "bcrp"),
-        "Usamos el tipo de cambio interbancario de venta que publica el Banco Central de Reserva "
-        "del Perú (BCRP) cada día hábil. Si el dólar sube, el precio en soles también sube aunque "
-        "la bolsa no se mueva.",
+        "Usamos el dólar en vivo (USD/PEN), que se actualiza cada minuto desde Yahoo Finance o "
+        "TradingView; si ninguna responde, el tipo de cambio interbancario de venta que publica "
+        "el Banco Central de Reserva del Perú (BCRP) ese día. La pantalla «Precio» dice de dónde "
+        "salió el dólar y a qué hora. Si el dólar sube, el precio en soles también sube aunque la "
+        "bolsa no se mueva.",
     ),
     FaqEntry(
         "tipos_de_cafe",

@@ -36,6 +36,11 @@ recomendación de venta).
   madrugada hasta el mediodía».
 
 ### Corregido
+- **Asesor y «¿Cómo se calcula?» con el dólar en vivo.** Las respuestas sobre el cálculo, las
+  fuentes y el tipo de cambio decían que el dólar era solo el oficial del BCRP y que la bolsa se
+  consultaba en Yahoo Finance y Stooq. Ahora explican el dólar en vivo cada minuto (Yahoo
+  Finance o TradingView, con el BCRP de respaldo) y las webs actuales de la bolsa (Yahoo
+  Finance, CNBC y TradingView).
 - Los precios de cooperativas se aceptan hasta el **140 %** de la bolsa (antes 120 %). El mercado
   de Jaén puede pagar por encima del equivalente de la bolsa: en la entrevista del 13/11/2026 se
   pagaba S/ 1 130 con la bolsa en S/ 967,27 (116,8 %), cerca del límite anterior.

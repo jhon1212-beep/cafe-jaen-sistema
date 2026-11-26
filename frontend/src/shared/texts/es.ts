@@ -94,10 +94,10 @@ export const texts = {
     priceSteps: (cents: string, usd: string, quintal: string, rate: string, soles: string) => [
       `La bolsa cotiza ${cents} centavos de dólar por libra → US$ ${usd} por libra.`,
       `Un quintal de café verde son 46 kg = 101,41 libras → US$ ${quintal} por quintal.`,
-      `Por el tipo de cambio del BCRP (S/ ${rate} por dólar) → ${soles} por quintal.`,
+      `Por el dólar de ese momento (S/ ${rate} por US$, ver «Dólar» arriba) → ${soles} por quintal.`,
     ],
     priceNoRate:
-      "Se convierte de dólares por libra a soles por quintal de café verde (46 kg) con el tipo de cambio del BCRP.",
+      "Se convierte de dólares por libra a soles por quintal de café verde (46 kg) con el dólar en vivo o, si no responde, con el oficial del BCRP.",
     estimateSteps: (n: number, pct: string, exchange: string, result: string) => [
       `Tomamos los ${n} ${n === 1 ? "precio anotado" : "precios anotados"} de cooperativas de los últimos 30 días y, para cada uno, qué porcentaje de la bolsa pagaron ese día.`,
       `La mediana (el valor del medio, que no se deja llevar por un precio raro) es ${pct}.`,
