@@ -144,7 +144,7 @@ export const texts = {
   synthetic: {
     title: "Datos sintéticos para la demostración",
     intro:
-      "Agrega 6 cooperativas «Cooperativa JAENPERU sintético A…F» con unos 60 días de precios inventados, calculados sobre el precio REAL de la bolsa de cada día. Sirven para mostrar la app; bórralos antes de trabajar con el grupo experimental.",
+      "Agrega 6 cooperativas «Cooperativa JAENPERU sintético A…F» con unos 60 días de precios inventados, calculados sobre el precio REAL de la bolsa de cada día. Sirven para mostrar la app; bórralos antes de trabajar con el grupo experimental. Con DEMO_COOPERATIVES=false se borran solos al reiniciar la app.",
     none: "No hay datos sintéticos cargados.",
     loaded: (coops: number, prices: number) =>
       `Cargados: ${coops} cooperativas sintéticas con ${prices} precios.`,

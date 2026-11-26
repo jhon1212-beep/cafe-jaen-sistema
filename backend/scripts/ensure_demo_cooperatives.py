@@ -1,7 +1,9 @@
-"""Carga los precios SINTÉTICOS de cooperativas al arrancar si DEMO_COOPERATIVES=true.
+"""Precios SINTÉTICOS de cooperativas al arrancar, según DEMO_COOPERATIVES.
 
-Solo si todavía no hay ninguno (no los regenera en cada reinicio). La bolsa y el tipo de cambio
-que los acompañan son reales. El equipo puede borrarlos en «Equipo → Cooperativas».
+- true: los carga solo si todavía no hay ninguno (no los regenera en cada reinicio). La bolsa y
+  el tipo de cambio que los acompañan son reales.
+- false (producción del experimento): borra los que hayan quedado, para que el estimado en Jaén
+  y las descargas de la tesis usen solo precios reales de cooperativas.
 """
 
 from market.application.manage_synthetic_data import ManageSyntheticData
@@ -17,9 +19,6 @@ from shared.infrastructure.system_clock import SystemClock
 
 def main() -> None:
     settings = get_settings()
-    if not settings.demo_cooperatives:
-        print("DEMO_COOPERATIVES no está activo: no se cargan precios sintéticos.")
-        return
     sessions = create_session_factory(create_db_engine(settings.database_url))
     manager = ManageSyntheticData(
         SqlAlchemyPriceRepository(sessions),
@@ -27,6 +26,14 @@ def main() -> None:
         PriceConverter(settings.local_price_factor),
         SystemClock(),
     )
+    if not settings.demo_cooperatives:
+        removed = manager.status().observations
+        if removed:
+            manager.remove()
+            print(f"DEMO_COOPERATIVES=false: se borraron {removed} precio(s) sintético(s).")
+        else:
+            print("DEMO_COOPERATIVES=false: no hay precios sintéticos; solo datos reales.")
+        return
     if not manager.ensure_loaded():
         print(
             "Aviso: aún no hay precio real de la bolsa; la app reintentará cargar los precios "

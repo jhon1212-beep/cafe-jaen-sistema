@@ -21,6 +21,9 @@ recomendación de venta).
   estimado en Jaén y los precios de cooperativas «por quintal de pergamino (55,2 kg)», en las
   pantallas, en la explicación «¿Cómo se calcula?», en el pronóstico y en las respuestas del
   asesor. Las fichas de TAI y TPP de la tesis usan el quintal de 55,2 kg.
+- **Producción sin datos sintéticos.** `render.yaml` trae `DEMO_COOPERATIVES=false` y, con ese
+  valor, la app borra al arrancar los precios «JAENPERU sintético» que hayan quedado. En Render hay
+  que cambiar la variable a mano si ya existía en `true`.
 
 ### Corregido
 - Los precios de cooperativas se aceptan hasta el **140 %** de la bolsa (antes 120 %). El mercado
