@@ -1,0 +1,9 @@
+# Dependencias para desarrollar y correr las pruebas (incluye las de la app).
+# Instalar: pip install -r requirements-dev.txt
+-r requirements.txt
+pytest==9.1.1
+pytest-cov==7.1.0
+ruff==0.17.1
+mypy==2.4.0
+import-linter==2.15
+locust==2.46.7

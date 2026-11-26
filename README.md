@@ -287,6 +287,19 @@ app muestra el último precio con el aviso «Bolsa cerrada». `Ctrl+C` detiene t
 
 En macOS o Linux el comando puede ser `python3`; en Windows también funciona `py dev.py …`.
 
+**Dependencias de Python.** Están en `backend/pyproject.toml`, con versiones fijas, y también en
+`backend/requirements.txt` (la app) y `backend/requirements-dev.txt` (más las herramientas de
+pruebas). `dev.py setup` ya las instala; para hacerlo a mano:
+
+```bash
+cd backend
+python -m venv .venv
+.venv/Scripts/activate        # en macOS o Linux: source .venv/bin/activate
+pip install -r requirements-dev.txt
+```
+
+Una prueba automática verifica que los `requirements*.txt` digan lo mismo que `pyproject.toml`.
+
 ### Comandos de `dev.py`
 
 | Comando | Qué hace |

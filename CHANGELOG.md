@@ -4,6 +4,12 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). C
 corresponde a la entrega de una iteración XP del plan v3.0/v4.0 (precio mundial en vivo y
 recomendación de venta).
 
+## [v1.12.2] — requirements.txt
+
+### Agregado
+- `backend/requirements.txt` y `backend/requirements-dev.txt` con las mismas dependencias y
+  versiones de `pyproject.toml`; una prueba avisa si alguna vez dejan de coincidir.
+
 ## [v1.12.1] — Fuentes que limitan las consultas
 
 ### Corregido
