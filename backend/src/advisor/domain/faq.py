@@ -47,10 +47,12 @@ FAQ: tuple[FaqEntry, ...] = (
             "como calculan",
         ),
         "El precio de la bolsa llega en centavos de dólar por libra (¢/lb). Lo pasamos a soles "
-        "por quintal así: ¢/lb ÷ 100 × 101,41 libras (los 46 kg del quintal) × tipo de cambio del "
-        "BCRP. El «precio estimado en Jaén» es ese precio × el porcentaje que pagan las "
-        "cooperativas (la mediana de los precios anotados en los últimos 30 días). En la pantalla "
-        "«Precio» el botón «¿Cómo se calcula?» muestra la cuenta con los números de hoy.",
+        "por quintal así: ¢/lb ÷ 100 × 101,41 libras (los 46 kg del quintal de café verde) × el "
+        "dólar de ese momento, que se actualiza cada minuto (si no responde, se usa el oficial "
+        "del BCRP del día). El «precio estimado en Jaén» es ese precio × el porcentaje que "
+        "pagan las cooperativas (la mediana de los precios anotados en los últimos 30 días). En "
+        "la pantalla «Precio» el botón «¿Cómo se calcula?» muestra la cuenta con los números de "
+        "hoy.",
     ),
     FaqEntry(
         "por_que_jaen_es_distinto",
@@ -59,21 +61,112 @@ FAQ: tuple[FaqEntry, ...] = (
             "por que es diferente",
             "por que pagan menos",
             "pagan menos",
+            "pagan mas",
             "por que en jaen",
             "diferencia",
             "por que no pagan",
         ),
-        "La bolsa de Nueva York cotiza café verde (oro) listo para exportar. En Jaén se vende "
-        "pergamino, que todavía hay que pilar, seleccionar, transportar y exportar; además cuenta "
-        "la calidad de cada lote. Por eso las cooperativas pagan un porcentaje del precio de la "
-        "bolsa, y ese porcentaje es el que usamos para el estimado en Jaén.",
+        "La bolsa de Nueva York cotiza café verde (oro) listo para exportar, por quintal de 46 "
+        "kg. En Jaén se vende pergamino por quintal de 55,2 kg, que todavía hay que pilar, "
+        "seleccionar, transportar y exportar; además cuenta el diferencial de cada lote. Por eso "
+        "las cooperativas pagan un porcentaje del precio de la bolsa, que puede quedar por debajo "
+        "o por encima del 100 % según la oferta de café en la zona. Ese porcentaje es el que "
+        "usamos para el estimado en Jaén.",
+    ),
+    # ---- Temas de la entrevista a un comerciante de café de Jaén (13/11/2026)
+    FaqEntry(
+        "diferencial",
+        (
+            "que es el diferencial",
+            "el diferencial",
+            "diferencial",
+            "rendimiento exportable",
+            "rendimiento",
+            "bolsa mas",
+        ),
+        "La forma tradicional de fijar el precio es «bolsa más un diferencial». La bolsa de Nueva "
+        "York es el precio base; el diferencial es lo que se suma o se resta por la cantidad del "
+        "lote, la calidad en taza, los defectos, si es orgánico o convencional y el rendimiento "
+        "exportable: a mayor rendimiento, se necesita menos pergamino para sacar un quintal de "
+        "café verde y el comprador puede pagar más. Por eso la app separa el estimado por tipo "
+        "de café.",
+    ),
+    FaqEntry(
+        "precio_fijo",
+        (
+            "precio fijo",
+            "precio coberturado",
+            "precios coberturados",
+            "coberturado",
+            "precio cerrado",
+            "fijar el precio",
+            "precio de calidad",
+            "precios de calidad",
+        ),
+        "Además del precio de bolsa hay otras formas de vender. Con un precio fijo o "
+        "«coberturado» comprador y productor acuerdan un precio que no cambia aunque la bolsa "
+        "suba o baje. Con los precios por calidad, a mejor calidad se paga un mejor precio. La "
+        "app muestra el precio de bolsa y el estimado en Jaén; un precio fijo depende de cada "
+        "contrato.",
+    ),
+    FaqEntry(
+        "cobertura",
+        ("cobertura", "cubrirse", "cubrir el precio"),
+        "La cobertura es una forma de protegerse de las subidas y bajadas de la bolsa, por "
+        "ejemplo, fijando el precio con el comprador antes de entregar el café. El café es un "
+        "commodity y su precio varía mucho; por eso los comerciantes recomiendan que toda "
+        "operación tenga una cobertura.",
+    ),
+    FaqEntry(
+        "meses_del_contrato",
+        (
+            "meses del contrato",
+            "mes del contrato",
+            "cambio de contrato",
+            "cambia de contrato",
+            "cambia el contrato",
+            "vence el contrato",
+            "vencimiento",
+            "salto en el grafico",
+            "salto el precio",
+            "por que salto",
+        ),
+        "El contrato C del café arábica vence en marzo, mayo, julio, septiembre y diciembre. Las "
+        "webs muestran el contrato más cercano; cuando se acerca su vencimiento pasan al "
+        "siguiente, y por eso el precio o el gráfico pueden dar un salto ese día aunque el "
+        "mercado no se haya movido tanto.",
+    ),
+    FaqEntry(
+        "equivalencias",
+        (
+            "cuantas libras",
+            "libras",
+            "kilo a libra",
+            "equivalencia",
+            "equivalencias",
+            "saco de exportacion",
+            "69 kilos",
+        ),
+        "Un kilo son 2,2046 libras. El quintal de café verde de exportación pesa 46 kilos "
+        "(101,41 libras) y es el que usa la bolsa; en Jaén el quintal de pergamino pesa 55,2 "
+        "kilos. El café se embarca en sacos de 69 kilos (casi quintal y medio), pero los "
+        "contratos se calculan por quintales de 46 kilos y se cobran en libras.",
+    ),
+    FaqEntry(
+        "peru_en_la_bolsa",
+        ("cafe peruano en la bolsa", "peru en la bolsa", "a la par", "cafe del peru en la bolsa"),
+        "En el contrato C de la bolsa de Nueva York el café del Perú se entrega «a la par»: no "
+        "tiene premio ni descuento frente al precio de la bolsa, como sí ocurre con otros "
+        "orígenes (ICE Futures U.S.). Por eso la bolsa es una buena referencia para el café "
+        "peruano.",
     ),
     FaqEntry(
         "fuentes",
         ("de donde sacan", "fuente", "de donde viene", "confiable el precio", "es real el precio"),
-        "El precio de la bolsa lo consultamos cada minuto en Yahoo Finance y Stooq (contrato café "
-        "C de la bolsa ICE de Nueva York) y publicamos el valor en que coinciden. "
-        "El tipo de cambio es el oficial del Banco Central de Reserva (BCRP). Lo que paga "
+        "El precio de la bolsa lo consultamos cada minuto en varias webs (Yahoo Finance, CNBC y "
+        "TradingView; contrato café C de la bolsa ICE de Nueva York) y publicamos el valor en que "
+        "coinciden. El dólar sale de Yahoo Finance o TradingView cada minuto y, si no responden, "
+        "del Banco Central de Reserva (BCRP). Lo que paga "
         "cada cooperativa lo anota el equipo preguntando directamente. En «Precio» están los "
         "botones para abrir cada fuente.",
     ),
@@ -129,9 +222,11 @@ FAQ: tuple[FaqEntry, ...] = (
     FaqEntry(
         "tipo_de_cambio",
         ("tipo de cambio", "dolar", "bcrp"),
-        "Usamos el tipo de cambio interbancario de venta que publica el Banco Central de Reserva "
-        "del Perú (BCRP) cada día hábil. Si el dólar sube, el precio en soles también sube aunque "
-        "la bolsa no se mueva.",
+        "Usamos el dólar en vivo (USD/PEN), que se actualiza cada minuto desde Yahoo Finance o "
+        "TradingView; si ninguna responde, el tipo de cambio interbancario de venta que publica "
+        "el Banco Central de Reserva del Perú (BCRP) ese día. La pantalla «Precio» dice de dónde "
+        "salió el dólar y a qué hora. Si el dólar sube, el precio en soles también sube aunque la "
+        "bolsa no se mueva.",
     ),
     FaqEntry(
         "tipos_de_cafe",
@@ -198,7 +293,8 @@ FAQ: tuple[FaqEntry, ...] = (
         "Puedo decirte: el precio del café hoy («¿a cuánto está?»), cómo se movió («últimos 30 "
         "días»), el pronóstico («¿subirá la próxima semana?»), si conviene vender («¿vendo o "
         "espero?») y lo que pagan las cooperativas («¿cuánto paga CENFROCAFE?»). También explico "
-        "cómo se calcula cada número, qué es un quintal, el pergamino o la bolsa.",
+        "cómo se calcula cada número, qué es un quintal, el pergamino, la bolsa, el diferencial, "
+        "el precio fijo y las equivalencias entre kilos y libras.",
     ),
     FaqEntry(
         "saludo",

@@ -7,6 +7,11 @@ recomendación de venta).
 ## [v1.13] — Ajustes tras las entrevistas y la revisión del informe
 
 ### Agregado
+- **Asesor: temas de la entrevista a un comerciante de café de Jaén** (13/11/2026): el
+  diferencial y el rendimiento exportable, el precio fijo («coberturado») y por calidad, la
+  cobertura, los meses del contrato C (marzo, mayo, julio, septiembre y diciembre) y el salto del
+  gráfico al cambiar de contrato, las equivalencias kilo-libra-quintal y el café del Perú «a la
+  par» en la bolsa. «¿Por qué en Jaén es distinto?» ya no supone que siempre se paga menos.
 - **Descargar precios de cooperativas (CSV)** en «Equipo → Precios», por periodo: el detalle de
   cada precio anotado y el promedio por día y tipo de café con el último precio de cada
   cooperativa (sin los sintéticos). Es el precio real (Pr) de la ficha TPP de la tesis
@@ -21,8 +26,21 @@ recomendación de venta).
   estimado en Jaén y los precios de cooperativas «por quintal de pergamino (55,2 kg)», en las
   pantallas, en la explicación «¿Cómo se calcula?», en el pronóstico y en las respuestas del
   asesor. Las fichas de TAI y TPP de la tesis usan el quintal de 55,2 kg.
+- **Producción sin datos sintéticos.** `render.yaml` trae `DEMO_COOPERATIVES=false` y, con ese
+  valor, la app borra al arrancar los precios «JAENPERU sintético» que hayan quedado. En Render hay
+  que cambiar la variable a mano si ya existía en `true`.
+
+- **Horario de la bolsa en hora de Lima.** La pantalla «Precio» dice cuándo negocia la bolsa hoy
+  (de 04:15 a 13:30 de noviembre a marzo; de 03:15 a 12:30 cuando Nueva York pasa al horario de
+  verano, desde el 14/03/2027) y el manual de usuario da las horas exactas en lugar de «de
+  madrugada hasta el mediodía».
 
 ### Corregido
+- **Asesor y «¿Cómo se calcula?» con el dólar en vivo.** Las respuestas sobre el cálculo, las
+  fuentes y el tipo de cambio decían que el dólar era solo el oficial del BCRP y que la bolsa se
+  consultaba en Yahoo Finance y Stooq. Ahora explican el dólar en vivo cada minuto (Yahoo
+  Finance o TradingView, con el BCRP de respaldo) y las webs actuales de la bolsa (Yahoo
+  Finance, CNBC y TradingView).
 - Los precios de cooperativas se aceptan hasta el **140 %** de la bolsa (antes 120 %). El mercado
   de Jaén puede pagar por encima del equivalente de la bolsa: en la entrevista del 13/11/2026 se
   pagaba S/ 1 130 con la bolsa en S/ 967,27 (116,8 %), cerca del límite anterior.

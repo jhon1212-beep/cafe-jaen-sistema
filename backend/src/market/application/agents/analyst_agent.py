@@ -1,4 +1,4 @@
-from datetime import tzinfo
+from datetime import date, tzinfo
 from decimal import Decimal
 from typing import Any
 
@@ -8,6 +8,7 @@ from market.application.record_local_price import RecordLocalPrice, RecordLocalP
 from market.domain.errors import MarketError
 from market.domain.live_price import HistoryPoint, IntradayPoint, LivePrice
 from market.domain.local_price import LocalEstimate, LocalPriceObservation
+from market.domain.market_hours import MarketHours
 from shared.domain.agent_message import AgentMessage
 from shared.domain.contract import Action, AgentName
 from shared.domain.ports.clock import Clock
@@ -40,7 +41,7 @@ class AnalystAgent:
             if message.action == Action.GET_LIVE_PRICE:
                 live = self._get_live_price.execute()
                 # La hora se entrega en la zona del caficultor (Lima)
-                return message.reply_inform(live_to_dict(live, now.tzinfo), now)
+                return message.reply_inform(live_to_dict(live, now.tzinfo, now.date()), now)
             if message.action == Action.GET_PRICE_HISTORY:
                 return message.reply_inform(self._history(message.content), now)
             if message.action == Action.RECORD_LOCAL_PRICE:
@@ -69,9 +70,17 @@ class AnalystAgent:
         return {"period": period, "points": [_point_to_dict(p) for p in daily]}
 
 
-def live_to_dict(live: LivePrice, zone: tzinfo | None = None) -> dict[str, Any]:
+def live_to_dict(
+    live: LivePrice, zone: tzinfo | None = None, today: date | None = None
+) -> dict[str, Any]:
     quoted_at = live.quoted_at.astimezone(zone) if zone else live.quoted_at
+    session = None
+    if zone and today:
+        # Horario del día en hora de Lima (cambia con el horario de verano de Nueva York)
+        opens, closes = MarketHours().session_in(today, zone)
+        session = {"opens": f"{opens:%H:%M}", "closes": f"{closes:%H:%M}"}
     return {
+        "session": session,
         "quoted_at": quoted_at.isoformat(),
         "date": quoted_at.date().isoformat(),
         "cents_per_pound": float(live.cents_per_pound),

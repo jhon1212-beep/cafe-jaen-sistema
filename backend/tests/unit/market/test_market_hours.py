@@ -28,3 +28,18 @@ def test_trading_day_uses_new_york_date() -> None:
     late_in_lima = datetime(2026, 10, 21, 23, 30, tzinfo=LIMA)
 
     assert MarketHours.trading_day(late_in_lima) == date(2026, 10, 22)
+
+
+@pytest.mark.parametrize(
+    ("day", "opens", "closes"),
+    [
+        (date(2026, 11, 26), "04:15", "13:30"),  # Nueva York en horario de invierno: misma hora
+        (date(2027, 3, 15), "03:15", "12:30"),  # desde el 14/03/2027, horario de verano
+    ],
+)
+def test_session_in_lima_follows_new_york_daylight_saving(
+    day: date, opens: str, closes: str
+) -> None:
+    start, end = MarketHours().session_in(day, LIMA)
+
+    assert (f"{start:%H:%M}", f"{end:%H:%M}") == (opens, closes)

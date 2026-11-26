@@ -14,9 +14,10 @@ python scripts/ensure_admin.py
     || echo "Aviso: el histórico real no terminó de cargarse (se reintenta en el próximo arranque)"
   timeout 300 python scripts/run_daily_cycle.py \
     || echo "Aviso: no se pudo generar el pronóstico todavía (se genera después del cierre)"
-  # Demostración (DEMO_COOPERATIVES=true): precios sintéticos de cooperativas sobre la bolsa real
+  # Precios sintéticos de cooperativas: con DEMO_COOPERATIVES=true se cargan (demostración);
+  # con false se borran los que hayan quedado (experimento con caficultores)
   timeout 120 python scripts/ensure_demo_cooperatives.py \
-    || echo "Aviso: no se cargaron los precios sintéticos (la app reintenta cada 5 minutos)"
+    || echo "Aviso: no se pudo revisar los precios sintéticos (se reintenta en el próximo arranque)"
 ) &
 
 exec uvicorn main:app --host 0.0.0.0 --port "${PORT:-8000}" --app-dir src --proxy-headers --forwarded-allow-ips="*"
