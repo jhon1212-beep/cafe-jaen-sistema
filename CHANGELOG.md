@@ -7,6 +7,11 @@ recomendación de venta).
 ## [v1.13] — Ajustes tras las entrevistas y la revisión del informe
 
 ### Agregado
+- **Asesor: temas de la entrevista a un comerciante de café de Jaén** (13/11/2026): el
+  diferencial y el rendimiento exportable, el precio fijo («coberturado») y por calidad, la
+  cobertura, los meses del contrato C (marzo, mayo, julio, septiembre y diciembre) y el salto del
+  gráfico al cambiar de contrato, las equivalencias kilo-libra-quintal y el café del Perú «a la
+  par» en la bolsa. «¿Por qué en Jaén es distinto?» ya no supone que siempre se paga menos.
 - **Descargar precios de cooperativas (CSV)** en «Equipo → Precios», por periodo: el detalle de
   cada precio anotado y el promedio por día y tipo de café con el último precio de cada
   cooperativa (sin los sintéticos). Es el precio real (Pr) de la ficha TPP de la tesis
