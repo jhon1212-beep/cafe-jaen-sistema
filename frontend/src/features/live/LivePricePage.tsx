@@ -166,6 +166,9 @@ function PriceBoard({ price, live, trend }: { price: LivePrice; live: boolean; t
           {price.market_open ? texts.live.openShort : texts.live.closedShort}
         </p>
       </div>
+      {price.session && (
+        <p className="footnote">{texts.live.session(price.session.opens, price.session.closes)}</p>
+      )}
       {price.stale && <p className="banner">{texts.live.stale}</p>}
       <Sparkline values={trend} />
       <InfoNote>

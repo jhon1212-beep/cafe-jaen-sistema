@@ -10,6 +10,7 @@ export interface LivePrice {
   unit: string;
   market: string;
   market_open: boolean;
+  session?: { opens: string; closes: string } | null; // horario de hoy en hora de Lima
   stale: boolean;
   sources: string[];
   local_estimates: LocalEstimate[];

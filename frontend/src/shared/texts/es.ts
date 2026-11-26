@@ -84,6 +84,8 @@ export const texts = {
     forecastHint: "Bolsa y Jaén, día por día",
     openShort: "Bolsa abierta",
     closedShort: "Bolsa cerrada",
+    session: (opens: string, closes: string) =>
+      `La bolsa negocia de lunes a viernes de ${opens} a ${closes} (hora de Lima).`,
     quotedShort: (time: string) => `Cotización de las ${time}`,
   },
   info: {

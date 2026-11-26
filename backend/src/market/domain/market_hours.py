@@ -1,7 +1,7 @@
 """Horario de la bolsa de Nueva York para el café arábica (ICE, contrato C)."""
 
 from dataclasses import dataclass
-from datetime import date, datetime, time
+from datetime import date, datetime, time, tzinfo
 from zoneinfo import ZoneInfo
 
 NEW_YORK = ZoneInfo("America/New_York")
@@ -28,6 +28,12 @@ class MarketHours:
     def trading_day(moment: datetime) -> date:
         """Día de negociación al que pertenece una cotización (fecha de Nueva York)."""
         return moment.astimezone(NEW_YORK).date()
+
+    def session_in(self, day: date, zone: tzinfo) -> tuple[datetime, datetime]:
+        """Apertura y cierre de un día en otra zona horaria (en Lima cambian con el horario de
+        verano de Nueva York: 04:15–13:30 de noviembre a marzo y 03:15–12:30 el resto del año)."""
+        opens = datetime.combine(day, self.opens, tzinfo=NEW_YORK).astimezone(zone)
+        return opens, datetime.combine(day, self.closes, tzinfo=NEW_YORK).astimezone(zone)
 
     def close_of(self, day: date) -> datetime:
         """Hora de cierre de un día de negociación (para cierres diarios sin hora)."""

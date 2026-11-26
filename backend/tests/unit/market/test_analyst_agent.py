@@ -60,6 +60,7 @@ def test_answers_live_price_in_lima_time(analyst: AnalystAgent) -> None:
     assert reply.content["cents_per_pound"] == 300
     assert reply.content["quoted_at"] == "2026-11-04T08:55:00-05:00"
     assert reply.content["market_open"] is True
+    assert reply.content["session"] == {"opens": "04:15", "closes": "13:30"}  # hora de Lima
 
 
 def test_answers_today_and_daily_history(analyst: AnalystAgent) -> None:

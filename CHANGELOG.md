@@ -25,6 +25,11 @@ recomendación de venta).
   valor, la app borra al arrancar los precios «JAENPERU sintético» que hayan quedado. En Render hay
   que cambiar la variable a mano si ya existía en `true`.
 
+- **Horario de la bolsa en hora de Lima.** La pantalla «Precio» dice cuándo negocia la bolsa hoy
+  (de 04:15 a 13:30 de noviembre a marzo; de 03:15 a 12:30 cuando Nueva York pasa al horario de
+  verano, desde el 14/03/2027) y el manual de usuario da las horas exactas en lugar de «de
+  madrugada hasta el mediodía».
+
 ### Corregido
 - Los precios de cooperativas se aceptan hasta el **140 %** de la bolsa (antes 120 %). El mercado
   de Jaén puede pagar por encima del equivalente de la bolsa: en la entrevista del 13/11/2026 se
