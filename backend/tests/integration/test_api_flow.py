@@ -9,7 +9,7 @@ import json
 from fastapi.testclient import TestClient
 
 from tests.conftest import INVITATION_CODE
-from tests.fakes import FakeCodeSender
+from tests.fakes import FakeCodeSender, FixedClock
 
 
 def test_health(client: TestClient) -> None:
@@ -146,6 +146,38 @@ def test_only_the_team_can_record_cooperative_prices(
     assert len(listed["observations"]) == 1
     assert live["local_estimates"][0]["coffee_type"] == "convencional"
     assert live["local_estimates"][0]["estimated_soles"] == 900.0
+
+
+def test_team_downloads_cooperative_prices_as_csv(
+    client: TestClient,
+    auth_headers: dict[str, str],
+    admin_headers: dict[str, str],
+    clock: FixedClock,
+) -> None:
+    body = {"cooperative": "Coop. A", "coffee_type": "convencional", "paid_soles": 900}
+    client.post("/api/admin/local-prices", json=body, headers=admin_headers)
+    today = clock.today().isoformat()
+    params = {"start": today, "end": today}
+
+    as_farmer = client.get("/api/admin/local-prices/export", params=params, headers=auth_headers)
+    detail = client.get("/api/admin/local-prices/export", params=params, headers=admin_headers)
+    summary = client.get(
+        "/api/admin/local-prices/export",
+        params={**params, "summary": "true"},
+        headers=admin_headers,
+    )
+
+    assert as_farmer.status_code == 403
+    assert detail.headers["content-type"].startswith("text/csv")
+    assert "attachment" in detail.headers["content-disposition"]
+    lines = detail.text.lstrip("\ufeff").splitlines()
+    assert lines[0].startswith("fecha,hora,cooperativa,tipo_de_cafe")
+    assert "Coop. A,convencional,900" in lines[1]
+    assert (
+        summary.text.lstrip("\ufeff")
+        .splitlines()[1]
+        .endswith(",convencional,1,900.00,900.00,900.00")
+    )
 
 
 def test_advisor_answers_with_the_same_price_as_home(

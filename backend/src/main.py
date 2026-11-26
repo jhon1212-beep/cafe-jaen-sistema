@@ -57,6 +57,7 @@ from market.application.agents.analyst_agent import AnalystAgent
 from market.application.agents.collector_agent import CollectorAgent
 from market.application.collect_prices import CollectPrices
 from market.application.correct_local_price import CorrectLocalPrice
+from market.application.export_local_prices import ExportLocalPrices
 from market.application.get_live_price import GetLivePrice
 from market.application.get_price_history import GetPriceHistory
 from market.application.get_price_log import GetPriceLog
@@ -289,6 +290,7 @@ def create_app(settings: Settings | None = None, overrides: Overrides | None = N
             CorrectLocalPrice(prices),
             GetPriceLog(prices, converter, LocalPriceEstimator(), clock),
             synthetic_data,
+            ExportLocalPrices(prices, clock),
             require_user,
             require_admin,
         ),

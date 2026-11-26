@@ -34,7 +34,57 @@ export function AdminPage() {
           ))}
         </ul>
       )}
+      <ExportPrices />
     </section>
+  );
+}
+
+const isoDay = (date: Date) => date.toLocaleDateString("en-CA", { timeZone: "America/Lima" });
+
+/** Descarga los precios de cooperativas de un periodo (detalle o promedio por día). */
+function ExportPrices() {
+  const today = new Date();
+  const [start, setStart] = useState(isoDay(new Date(today.getTime() - 29 * 86_400_000)));
+  const [end, setEnd] = useState(isoDay(today));
+  const [error, setError] = useState<ApiError | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const download = async (summary: boolean) => {
+    setBusy(true);
+    setError(null);
+    const name = summary ? "promedio_diario_cooperativas" : "precios_cooperativas";
+    try {
+      await api.download(
+        `/admin/local-prices/export?start=${start}&end=${end}&summary=${summary}`,
+        `${name}_${start}_${end}.csv`,
+      );
+    } catch (caught) {
+      setError(caught as ApiError);
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <article className="form card">
+      <h2 className="card__title">{texts.admin.exportTitle}</h2>
+      <p className="muted">{texts.admin.exportIntro}</p>
+      <label>
+        {texts.admin.exportFrom}
+        <input type="date" value={start} onChange={(e) => setStart(e.target.value)} />
+      </label>
+      <label>
+        {texts.admin.exportTo}
+        <input type="date" value={end} onChange={(e) => setEnd(e.target.value)} />
+      </label>
+      <button className="button" type="button" disabled={busy} onClick={() => download(false)}>
+        {texts.admin.exportDetail}
+      </button>
+      <button className="button" type="button" disabled={busy} onClick={() => download(true)}>
+        {texts.admin.exportSummary}
+      </button>
+      <StatusMessage error={error} />
+    </article>
   );
 }
 

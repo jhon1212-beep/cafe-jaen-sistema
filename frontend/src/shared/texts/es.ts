@@ -332,6 +332,13 @@ export const texts = {
     recent: "Anotados en los últimos 30 días",
     paidShort: "pagó",
     exchange: "bolsa",
+    exportTitle: "Descargar precios para la tesis",
+    exportIntro:
+      "El precio real de la ficha TPP es el promedio de al menos tres cooperativas en la fecha objetivo. El detalle trae cada precio anotado; el promedio por día usa el último precio de cada cooperativa y deja fuera los sintéticos.",
+    exportFrom: "Desde",
+    exportTo: "Hasta",
+    exportDetail: "Detalle (CSV)",
+    exportSummary: "Promedio por día (CSV)",
   },
   chart: {
     title: "Gráfico del precio",
