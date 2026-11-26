@@ -43,9 +43,17 @@ demostración (fuentes «DEMO …», «Cooperativa Demo N», sus pronósticos y 
 
 ## Durante el experimento
 
-- **Precios de cooperativas (HU12):** cada día hábil, quien esté de turno llama a 2–3
+- **Precios de cooperativas (HU12):** cada día hábil, quien esté de turno llama a 3 o más
   cooperativas y anota su precio en «Equipo». El estimado usa los últimos 30 días; con menos de
   3 precios de un tipo de café la app avisa «pocos datos».
+- **Precio de referencia (v1.13):** solo se anota el precio del **pergamino seco estándar**
+  (11–12 % de humedad, calidad regular, sin castigos). La pregunta es siempre la misma: «¿A
+  cuánto está el quintal de pergamino seco, regular, ahora?». Si la cooperativa da otro precio por
+  humedad o calidad, se anota solo el del café estándar. La app pide confirmarlo antes de guardar.
+  Así los precios se comparan entre cooperativas y días, y el promedio diario sirve como precio
+  real (Pr) de la ficha TPP.
+- **Fechas objetivo de la TPP:** ese día el registro es obligatorio, con al menos 3 cooperativas
+  por tipo de café; luego se descarga «Promedio por día (CSV)» en «Equipo → Precios».
 
 - La versión **v1.1 queda congelada** para el experimento: solo correcciones por rama `hotfix/`.
 - Entregar un código de invitación por participante del GE (`make codes`), anotando a quién se entrega (GE-01 a GE-30).

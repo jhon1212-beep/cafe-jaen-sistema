@@ -132,6 +132,8 @@ export const texts = {
     synthetic: (n: number, total: number) =>
       `Demostración: ${n} de ${total} precios usados son sintéticos (no son de cooperativas reales).`,
     note: "Es lo que suelen pagar las cooperativas por quintal de pergamino (55,2 kg), según la bolsa de hoy.",
+    standard:
+      "Es el precio del pergamino seco estándar (11–12 % de humedad, calidad regular). Si tu café está más húmedo o tiene más defectos, la cooperativa puede descontar.",
     empty: "Todavía no hay precios de cooperativas anotados.",
     unit: "por quintal de pergamino (55,2 kg)",
     general: "General",
@@ -146,7 +148,7 @@ export const texts = {
   synthetic: {
     title: "Datos sintéticos para la demostración",
     intro:
-      "Agrega 6 cooperativas «Cooperativa JAENPERU sintético A…F» con unos 60 días de precios inventados, calculados sobre el precio REAL de la bolsa de cada día. Sirven para mostrar la app; bórralos antes de trabajar con el grupo experimental. Con DEMO_COOPERATIVES=false se borran solos al reiniciar la app.",
+      "Agrega 6 cooperativas «Cooperativa JAENPERU sintético A…F» con unos 60 días de precios inventados, calculados sobre el precio REAL de la bolsa de cada día. Sirven para mostrar la app; bórralos antes de trabajar con el grupo experimental.",
     none: "No hay datos sintéticos cargados.",
     loaded: (coops: number, prices: number) =>
       `Cargados: ${coops} cooperativas sintéticas con ${prices} precios.`,
@@ -335,6 +337,14 @@ export const texts = {
     save: "Guardar precio",
     saved: (pct: string) => `Guardado: equivale al ${pct} de la bolsa.`,
     recent: "Anotados en los últimos 30 días",
+    reference: {
+      title: "Anota solo el precio de referencia",
+      intro:
+        "Para que los precios se puedan comparar entre cooperativas y días, todos son del mismo café:",
+      chips: ["Pergamino seco", "11–12 % de humedad", "Calidad regular, sin castigos"],
+      ask: "Pregunta: «¿A cuánto está el quintal de pergamino seco, regular, ahora?». Si la cooperativa te da otro precio por humedad o calidad, anota solo el del café estándar.",
+    },
+    confirmStandard: "Es el precio del pergamino seco estándar (11–12 % de humedad, sin castigos)",
     paidShort: "pagó",
     exchange: "bolsa",
     exportTitle: "Descargar precios para la tesis",

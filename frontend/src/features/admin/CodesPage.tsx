@@ -78,16 +78,21 @@ export function CodesPage() {
       <AdminTabs />
       <h1>{texts.codes.title}</h1>
       <p className="muted">{texts.codes.intro}</p>
-      <form className="form card inline-form" onSubmit={generate}>
-        <Segmented
-          label={texts.codes.forWhom}
-          value={role}
-          onChange={setRole}
-          options={[
-            { value: "farmer", label: texts.codes.roles.farmer },
-            { value: "admin", label: texts.codes.roles.admin },
-          ]}
-        />
+      <form className="form card" onSubmit={generate}>
+        <div className="field">
+          <span className="field__label" aria-hidden="true">
+            {texts.codes.forWhom}
+          </span>
+          <Segmented
+            label={texts.codes.forWhom}
+            value={role}
+            onChange={setRole}
+            options={[
+              { value: "farmer", label: texts.codes.roles.farmer },
+              { value: "admin", label: texts.codes.roles.admin },
+            ]}
+          />
+        </div>
         <label>
           {texts.codes.howMany}
           <input

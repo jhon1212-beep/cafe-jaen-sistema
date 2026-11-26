@@ -21,11 +21,11 @@ services:
       # Dólar en vivo (USD/PEN) cada minuto; si no responde se usa el oficial del BCRP del día
       - key: EXCHANGE_RATE_SOURCES
         value: '["yahoo","tradingview"]'
-      # Precios SINTÉTICOS de cooperativas («Cooperativa JAENPERU sintético A…F»): en "false"
-      # (experimento con caficultores) la app borra al arrancar los que hayan quedado. Solo se
-      # pone "true" para una demostración sin precios reales de cooperativas.
+      # Demostración: precios SINTÉTICOS de cooperativas («Cooperativa JAENPERU sintético A…F»)
+      # sobre la bolsa real, para ver el estimado en Jaén. Antes del experimento: poner "false"
+      # y borrarlos en «Equipo → Cooperativas → Borrar datos sintéticos».
       - key: DEMO_COOPERATIVES
-        value: "false"
+        value: "true"
       # Base de datos: se carga a mano en Environment (no se versiona porque lleva contraseña).
       # Con la URL de una base PostgreSQL gratuita (Neon) los datos son permanentes; sin ella,
       # la app usa SQLite dentro del contenedor y los datos se reinician en cada despliegue.
