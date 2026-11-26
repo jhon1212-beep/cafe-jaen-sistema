@@ -61,13 +61,25 @@ def test_one_odd_price_does_not_move_the_median() -> None:
 
 @pytest.mark.parametrize(
     ("cooperative", "paid"),
-    [("Coop. A", "90"), ("Coop. A", "0"), ("  ", "900"), ("Coop. A", "1500")],
+    [("Coop. A", "90"), ("Coop. A", "0"), ("  ", "900"), ("Coop. A", "1700")],
 )
 def test_rejects_prices_that_look_mistyped(cooperative: str, paid: str) -> None:
     with pytest.raises(InvalidLocalPriceError):
         LocalPriceObservation(
             NOW, cooperative, CoffeeType.CONVENTIONAL, Decimal(paid), Decimal("1140")
         )
+
+
+@pytest.mark.parametrize(
+    ("paid", "exchange"),
+    [("1130", "967.27"), ("1500", "1140")],  # 116,8 % (entrevista del 13/11/2026) y 131,6 %
+)
+def test_accepts_local_prices_above_the_exchange(paid: str, exchange: str) -> None:
+    observation = LocalPriceObservation(
+        NOW, "Coop. A", CoffeeType.CONVENTIONAL, Decimal(paid), Decimal(exchange)
+    )
+
+    assert observation.ratio > 1
 
 
 CATALOG = InMemoryCooperativeRepository("Coop. A", "Coop. B")

@@ -60,8 +60,8 @@ y su nombre en `QUOTATION_SOURCES`; el consenso y el registro por web la incluye
 Las cooperativas fijan su precio a partir de la bolsa. Nosotros, con el rol **administrador**, preguntamos
 «¿a cuánto está el quintal ahora?» y lo anotamos en la pantalla «Equipo»
 (`POST /api/admin/local-prices`). `RecordLocalPrice` guarda ese precio **junto al precio de la
-bolsa de ese momento**; `LocalPriceObservation` rechaza porcentajes fuera de 40 %–120 % (error al
-escribir). `LocalPriceEstimator` calcula, por tipo de café, la **mediana** de los porcentajes de
+bolsa de ese momento**; `LocalPriceObservation` rechaza porcentajes fuera de 40 %–140 % (error al
+escribir); el límite superior deja pasar precios locales por encima de la bolsa. `LocalPriceEstimator` calcula, por tipo de café, la **mediana** de los porcentajes de
 los últimos 30 días y `GetLivePrice` entrega `local_estimates` = bolsa en vivo × porcentaje, así
 el estimado se mueve con la bolsa y llega al celular por el mismo flujo en vivo. Las rutas del
 equipo exigen el rol en el token (`build_require_admin`); el front-end solo oculta la pantalla.

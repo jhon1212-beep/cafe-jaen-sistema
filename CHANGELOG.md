@@ -4,6 +4,13 @@ Formato basado en [Keep a Changelog](https://keepachangelog.com/es-ES/1.1.0/). C
 corresponde a la entrega de una iteración XP del plan v3.0/v4.0 (precio mundial en vivo y
 recomendación de venta).
 
+## [v1.13] — Ajustes tras las entrevistas y la revisión del informe
+
+### Corregido
+- Los precios de cooperativas se aceptan hasta el **140 %** de la bolsa (antes 120 %). El mercado
+  de Jaén puede pagar por encima del equivalente de la bolsa: en la entrevista del 13/11/2026 se
+  pagaba S/ 1 130 con la bolsa en S/ 967,27 (116,8 %), cerca del límite anterior.
+
 ## [v1.12.2] — requirements.txt
 
 ### Agregado

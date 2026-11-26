@@ -17,7 +17,9 @@ from market.domain.quintal_price import TWO_DECIMALS
 
 DEFAULT_WINDOW = timedelta(days=30)
 MIN_RATIO = Decimal("0.40")  # por debajo, casi seguro es un error al escribir el precio
-MAX_RATIO = Decimal("1.20")
+# Hasta 140 %: el mercado de Jaén puede pagar por encima del equivalente de la bolsa
+# (entrevista del 13/11/2026: S/ 1 130 frente a S/ 967,27, el 116,8 %)
+MAX_RATIO = Decimal("1.40")
 FEW_OBSERVATIONS = 3  # con menos, la app avisa que el estimado tiene pocos datos
 SYNTHETIC_MARK = "sintético"  # marca de los precios de demostración
 
