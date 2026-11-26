@@ -31,7 +31,8 @@ def _live_price(data: dict[str, Any]) -> str:
     quoted_at = datetime.fromisoformat(data["quoted_at"])
     text = (
         f"En la bolsa de Nueva York el café está a {soles(data['cents_per_pound'])} centavos de "
-        f"dólar por libra, que equivale a S/ {soles(data['price_soles'])} por quintal (46 kg) "
+        f"dólar por libra, que equivale a S/ {soles(data['price_soles'])} por quintal de café "
+        "verde (46 kg) "
         f"(cotización de las {quoted_at:%H:%M} del {spanish_date(data['date'])})"
     )
     change = data.get("change_soles")
@@ -49,7 +50,10 @@ def _live_price(data: dict[str, Any]) -> str:
             f"{_COFFEE_NAMES.get(e['coffee_type'], '')} S/ {soles(e['estimated_soles'])}"
             for e in estimates
         ]
-        text += f" Precio estimado en Jaén: {'; '.join(parts)} (según precios de cooperativas)."
+        text += (
+            f" Precio estimado en Jaén: {'; '.join(parts)} por quintal de pergamino (55,2 kg), "
+            "según precios de cooperativas."
+        )
     return text
 
 
@@ -108,7 +112,7 @@ def _local_prices(data: dict[str, Any]) -> str:
         for item in sorted(latest.values(), key=lambda i: i["observed_at"], reverse=True)[:6]
     ]
     return (
-        "Últimos precios por quintal de pergamino anotados por el equipo: "
+        "Últimos precios por quintal de pergamino (55,2 kg) anotados por el equipo: "
         + "; ".join(parts)
         + ". Pueden cambiar según la calidad de cada lote."
     )

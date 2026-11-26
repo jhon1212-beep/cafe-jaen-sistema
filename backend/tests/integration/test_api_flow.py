@@ -73,7 +73,7 @@ def test_live_price_and_history(client: TestClient, auth_headers: dict[str, str]
     today = client.get("/api/prices/history?period=today", headers=auth_headers).json()
 
     # Sin cotizaciones en vivo todavía: se muestra el último cierre
-    assert live["unit"] == "S/ por quintal (46 kg)" and live["price_soles"] > 0
+    assert live["unit"] == "S/ por quintal de café verde (46 kg)" and live["price_soles"] > 0
     assert len(history["points"]) > 50
     assert today == {"period": "today", "points": []}
 

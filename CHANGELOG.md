@@ -6,6 +6,12 @@ recomendación de venta).
 
 ## [v1.13] — Ajustes tras las entrevistas y la revisión del informe
 
+### Cambiado
+- **Unidad de cada precio (HU23).** La bolsa se muestra «por quintal de café verde (46 kg)» y el
+  estimado en Jaén y los precios de cooperativas «por quintal de pergamino (55,2 kg)», en las
+  pantallas, en la explicación «¿Cómo se calcula?», en el pronóstico y en las respuestas del
+  asesor. Las fichas de TAI y TPP de la tesis usan el quintal de 55,2 kg.
+
 ### Corregido
 - Los precios de cooperativas se aceptan hasta el **140 %** de la bolsa (antes 120 %). El mercado
   de Jaén puede pagar por encima del equivalente de la bolsa: en la entrevista del 13/11/2026 se

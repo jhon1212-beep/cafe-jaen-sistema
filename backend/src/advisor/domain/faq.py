@@ -101,8 +101,10 @@ FAQ: tuple[FaqEntry, ...] = (
     FaqEntry(
         "quintal",
         ("que es un quintal", "cuantos kilos", "cuanto pesa un quintal", "que es quintal"),
-        "Un quintal son 46 kilos (unas 101 libras). En la app todos los precios están en soles por "
-        "quintal para compararlos fácil con lo que paga la cooperativa.",
+        "Depende del café. La bolsa se expresa por quintal de café verde de exportación: 46 kilos "
+        "(unas 101 libras). En Jaén las cooperativas compran por quintal de pergamino de 55,2 "
+        "kilos (en el sur del país se usan 46 kilos y en la selva central, 56). Por eso la app "
+        "dice al lado de cada precio de qué quintal se trata.",
     ),
     FaqEntry(
         "pergamino",

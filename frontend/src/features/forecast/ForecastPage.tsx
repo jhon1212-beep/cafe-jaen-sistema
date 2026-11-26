@@ -51,7 +51,7 @@ export function ForecastPage() {
                   texts.local.coffeeTypes[estimate.coffee_type].toLowerCase(),
                 )
               : texts.forecast.noLocal}{" "}
-            {texts.forecast.rangeHint}
+            {texts.forecast.rangeHint} {texts.forecast.units}
           </p>
           <InfoNote>
             <ol>

@@ -38,7 +38,7 @@ def _to_dict(forecast: Forecast) -> dict[str, Any]:
         "generated_on": forecast.generated_on.isoformat(),
         "model": forecast.model_name,
         "mape": float(forecast.mape),
-        "unit": "S/ por quintal (46 kg)",
+        "unit": "S/ por quintal de café verde (46 kg)",
         "disclaimer": DISCLAIMER,
         "points": [
             {

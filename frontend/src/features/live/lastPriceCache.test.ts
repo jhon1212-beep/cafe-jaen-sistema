@@ -10,7 +10,7 @@ const PRICE: LivePrice = {
   previous_close_soles: 1100,
   change_soles: 40.89,
   change_pct: 3.72,
-  unit: "S/ por quintal (46 kg)",
+  unit: "S/ por quintal de café verde (46 kg)",
   market: "Bolsa de Nueva York (ICE), café arábica",
   market_open: true,
   stale: false,
