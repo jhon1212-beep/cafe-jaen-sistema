@@ -195,6 +195,22 @@ def test_advisor_answers_with_the_same_price_as_home(
     assert reply["used_tool"] == "get_live_price"
 
 
+def test_team_downloads_participants_as_csv(
+    client: TestClient, auth_headers: dict[str, str], admin_headers: dict[str, str]
+) -> None:
+    as_farmer = client.get("/api/admin/participants/export", headers=auth_headers)
+    response = client.get("/api/admin/participants/export", headers=admin_headers)
+
+    lines = response.text.lstrip("\ufeff").splitlines()
+    assert as_farmer.status_code == 403
+    assert response.headers["content-type"].startswith("text/csv")
+    assert lines[0] == (
+        "codigo_tesis,codigo_invitacion,nombre,celular,verificado,registro,ultimo_ingreso"
+    )
+    assert len(lines) == 2  # solo el caficultor; la cuenta del equipo no se exporta
+    assert f",{INVITATION_CODE}," in lines[1] and ",987654321,si," in lines[1]
+
+
 def test_team_sees_participants_and_their_last_login(
     client: TestClient, auth_headers: dict[str, str], admin_headers: dict[str, str]
 ) -> None:

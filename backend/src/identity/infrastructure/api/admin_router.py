@@ -1,6 +1,9 @@
+import csv
+import io
 from collections.abc import Callable
 from datetime import datetime
 from typing import Any
+from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from pydantic import BaseModel
@@ -33,9 +36,52 @@ def build_participants_router(
     delete_participant: DeleteParticipant,
     create_team_account: CreateTeamAccount,
     require_admin: Callable[..., str],
+    timezone: str = "America/Lima",
 ) -> APIRouter:
     """Rutas del equipo de investigación sobre los participantes (solo administrador)."""
     router = APIRouter(tags=["equipo"], dependencies=[Depends(require_admin)])
+    zone = ZoneInfo(timezone)
+
+    def lima(moment: datetime | None) -> str:
+        return moment.astimezone(zone).strftime("%d/%m/%Y %H:%M") if moment else ""
+
+    @router.get("/admin/participants/export")
+    def export_participants() -> Response:
+        """CSV de los caficultores registrados: registro y último ingreso (control de uso).
+
+        La columna «codigo_tesis» queda vacía para que el equipo anote GE-01 … GE-30.
+        """
+        buffer = io.StringIO()
+        writer = csv.writer(buffer)
+        writer.writerow(
+            [
+                "codigo_tesis",
+                "codigo_invitacion",
+                "nombre",
+                "celular",
+                "verificado",
+                "registro",
+                "ultimo_ingreso",
+            ]
+        )
+        farmers = [p for p in list_participants.execute().participants if p.role is Role.FARMER]
+        for p in sorted(farmers, key=lambda p: p.registered_at):
+            writer.writerow(
+                [
+                    "",
+                    p.invitation_code or "",
+                    p.name or "",
+                    p.phone,
+                    "si" if p.verified else "no",
+                    lima(p.registered_at),
+                    lima(p.last_login_at),
+                ]
+            )
+        return Response(
+            content="\ufeff" + buffer.getvalue(),
+            media_type="text/csv; charset=utf-8",
+            headers={"Content-Disposition": 'attachment; filename="participantes.csv"'},
+        )
 
     @router.get("/admin/participants")
     def participants() -> dict[str, Any]:

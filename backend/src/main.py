@@ -270,6 +270,7 @@ def create_app(settings: Settings | None = None, overrides: Overrides | None = N
             DeleteParticipant(users),
             CreateTeamAccount(users, hasher, clock),
             require_admin,
+            settings.timezone,
         ),
         prefix="/api",
     )

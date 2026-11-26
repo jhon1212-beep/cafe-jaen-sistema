@@ -304,6 +304,9 @@ export const texts = {
       none: "(no salió automáticamente: envíaselo por WhatsApp)",
     },
     sendByWhatsApp: "Enviar código por WhatsApp",
+    export: "Descargar participantes (CSV)",
+    exportHint:
+      "Registro y último ingreso de cada caficultor, para controlar el uso de la app en el grupo experimental. Anota en «codigo_tesis» el código GE-01 … GE-30 de cada uno.",
     newTeamTitle: "Crear cuenta del equipo",
     newTeamIntro:
       "Con su celular y una contraseña. Queda activa al instante como administrador; entrégale los datos en persona.",

@@ -11,6 +11,10 @@ recomendación de venta).
   cada precio anotado y el promedio por día y tipo de café con el último precio de cada
   cooperativa (sin los sintéticos). Es el precio real (Pr) de la ficha TPP de la tesis
   (`GET /api/admin/local-prices/export?start=&end=&summary=`).
+- **Descargar participantes (CSV)** en «Equipo → Participantes»: código de invitación, nombre,
+  celular, verificación, registro y último ingreso de cada caficultor, con una columna vacía
+  para anotar su código GE-01 … GE-30 (`GET /api/admin/participants/export`). Sirve para
+  controlar el uso de la app en el grupo experimental.
 
 ### Cambiado
 - **Unidad de cada precio (HU23).** La bolsa se muestra «por quintal de café verde (46 kg)» y el
